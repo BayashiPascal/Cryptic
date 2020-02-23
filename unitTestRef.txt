@@ -1,0 +1,5 @@
+Message:          072,101,108,108,111,032,087,111,114,108,100,046,
+Cyphered message: 118,073,094,092,063,132,192,196,201,204,246,068,
+Hello World.
+UnitTestFeistelCyphering OK
+UnitTestAll OK
