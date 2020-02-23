@@ -1,7 +1,7 @@
 # Cryptic
-Cryptic library is a C library to cypher and decipher data.
+Cryptic library is a C library to cypher and decypher data.
 
-It provides an implementation of the Feistel cipher scheme.
+It provides an implementation of the Feistel cypher scheme.
 
 ## How to install this repository
 1) Create a directory which will contains this repository and all the repositories it is depending on. Lets call it "Repos"
