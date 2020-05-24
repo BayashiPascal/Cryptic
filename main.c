@@ -524,12 +524,77 @@ void UnitTestFeistelStreamCipheringCTR() {
 
 }
 
+void UnitTestFeistelStreamCipheringFile() {
+
+  GSetStr keys = GSetStrCreateStatic();
+  unsigned char keyA[] = "123456";
+  unsigned char keyB[] = "abcdef";
+  GSetAppend(
+    &keys,
+    (char*)keyA);
+  GSetAppend(
+    &keys,
+    (char*)keyB);
+  FeistelCiphering cipher =
+    FeistelCipheringCreateStatic(
+      &keys,
+      &CipheringFun);
+
+  FILE* fpIn =
+    fopen(
+      "./cryptic.c",
+      "r");
+  FILE* fpOut =
+    fopen(
+      "./cryptic.ciphered",
+      "w");
+
+  unsigned char* initVector = (unsigned char*)"!`#$%&'(";
+  FeistelCipheringInitStream(
+    &cipher,
+    initVector);
+
+  FeistelCipheringCipherFile(
+    &cipher,
+    fpIn,
+    fpOut);
+
+  fclose(fpIn);
+  fclose(fpOut);
+
+  fpIn =
+    fopen(
+      "./cryptic.ciphered",
+      "r");
+  fpOut =
+    fopen(
+      "./cryptic.deciphered",
+      "w");
+
+  FeistelCipheringInitStream(
+    &cipher,
+    initVector);
+  FeistelCipheringDecipherFile(
+    &cipher,
+    fpIn,
+    fpOut);
+
+  fclose(fpIn);
+  fclose(fpOut);
+
+  FeistelCipheringFreeStatic(&cipher);
+  GSetFlush(&keys);
+  printf("UnitTestFeistelStreamCipheringFile OK\n");
+
+}
+
 void UnitTestAll() {
 
   UnitTestFeistelCiphering();
   UnitTestFeistelStreamCipheringECB();
   UnitTestFeistelStreamCipheringCBC();
   UnitTestFeistelStreamCipheringCTR();
+  UnitTestFeistelStreamCipheringFile();
   printf("UnitTestAll OK\n");
 
 }

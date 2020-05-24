@@ -182,10 +182,11 @@ void FeistelCipheringSetInitVec(
         (unsigned char*)malloc(
           strlen((char*)initVec) + 1 + sizeof(that->counter));
 
-      // Set the last byte to null
-      unsigned long posLastByte =
-        strlen((char*)initVec) + sizeof(that->counter);
-      that->initVector[posLastByte] = '\0';
+      // Init all the bytes to null
+      memset(
+        that->initVector,
+        0,
+        strlen((char*)initVec) + 1 + sizeof(that->counter));
 
       // Copy the initialising vector
       memcpy(
@@ -288,5 +289,60 @@ unsigned long FeistelCipheringGetReqSizeInitVec(
 
   // Return the size of initialising vector
   return size;
+
+}
+
+// Get the default size of blocks for the FeistelCiphering 'that'
+// It's the key size for ECB or computed from
+// the initialization vector for CBC and CTR.
+#if BUILDMODE != 0
+static inline
+#endif
+unsigned long FeistelCipheringGetDefaultSizeBlock(
+  const FeistelCiphering* const that) {
+
+#if BUILDMODE == 0
+
+  if (that == NULL) {
+
+    CrypticErr->_type = PBErrTypeNullPointer;
+    sprintf(
+      CrypticErr->_msg,
+      "'that' is null");
+    PBErrCatch(CrypticErr);
+
+  }
+
+#endif
+
+  // Calculate the size of blocks
+  unsigned long sizeBlock = 0;
+  unsigned char* key = NULL;
+  switch (FeistelCipheringGetOpMode(that)) {
+
+    case FeistelCipheringOpMode_ECB:
+      key = (unsigned char*)
+        GSetGet(
+          that->keys,
+          0);
+      sizeBlock = strlen((char*)key);
+      break;
+
+    case FeistelCipheringOpMode_CBC:
+      sizeBlock = strlen((char*)(that->initVector));
+      break;
+
+    case FeistelCipheringOpMode_CTR:
+      sizeBlock =
+        strlen((char*)(that->initVector)) + sizeof(that->counter);
+      break;
+
+    default:
+      break;
+
+  }
+
+  // Return the size of block
+  return sizeBlock;
 
 }

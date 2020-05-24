@@ -18,7 +18,7 @@
     unsigned char*, \
     unsigned long)
 
-#define DEFAULT_OP_MODE FeistelCipheringOpMode_ECB
+#define DEFAULT_OP_MODE FeistelCipheringOpMode_CTR
 
 // ================= Data structures ===================
 
@@ -172,6 +172,37 @@ static inline
 unsigned long FeistelCipheringGetReqSizeInitVec(
   const FeistelCiphering* const that,
             const unsigned long lenMsg);
+
+// Function to cipher a file 'fpIn' with the FeistelCiphering 'that'
+// Save the result in the file 'fpOut'.
+// Uses block of size equals to the key size for ECB or computed from
+// the initialization vector for CBC and CTR.
+// Keys must have been set and the stream initialised prior
+// to calling this function
+void FeistelCipheringCipherFile(
+  FeistelCiphering* that,
+        FILE* const fpIn,
+        FILE* const fpOut);
+
+// Function to decipher a file 'fpIn' with the FeistelCiphering 'that'
+// Save the result in the file 'fpOut'.
+// Uses block of size equals to the key size for ECB or computed from
+// the initialization vector for CBC and CTR.
+// Keys must have been set and the stream initialised prior
+// to calling this function
+void FeistelCipheringDecipherFile(
+  FeistelCiphering* that,
+        FILE* const fpIn,
+        FILE* const fpOut);
+
+// Get the default size of blocks for the FeistelCiphering 'that'
+// It's the key size for ECB or computed from
+// the initialization vector for CBC and CTR.
+#if BUILDMODE != 0
+static inline
+#endif
+unsigned long FeistelCipheringGetDefaultSizeBlock(
+  const FeistelCiphering* const that);
 
 // ================ inliner ====================
 
