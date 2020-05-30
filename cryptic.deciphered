@@ -773,21 +773,27 @@ void FeistelCipheringCipherFile(
         sizeBlock,
         fpIn);
 
-    // If the block is incomplete
-    if (nbRead != sizeBlock) {
+    // If we could read the block (i.e. not an empty line at the end of
+    // a text file)
+    if (nbRead != 0) {
 
-      // Pad with null character
-      memset(
-        block + nbRead,
-        0,
-        sizeBlock - nbRead);
+      // If the block is incomplete
+      if (nbRead != sizeBlock) {
+
+        // Pad with null character
+        memset(
+          block + nbRead,
+          ' ',
+          sizeBlock - nbRead);
+
+      }
+
+      // Add the block to the stream
+      GSetAppend(
+        &streamIn,
+        (char*)block);
 
     }
-
-    // Add the block to the stream
-    GSetAppend(
-      &streamIn,
-      (char*)block);
 
   }
 
@@ -891,21 +897,32 @@ void FeistelCipheringDecipherFile(
         sizeBlock,
         fpIn);
 
-    // If the block is incomplete
-    if (nbRead != sizeBlock) {
+    // If we could read the block (i.e. not an empty line at the end of
+    // a text file)
+    if (nbRead != 0) {
 
-      // Pad with null character
-      memset(
-        block + nbRead,
-        0,
-        sizeBlock - nbRead);
+      // If the block is incomplete
+      if (nbRead != sizeBlock) {
+
+        // Pad with null character
+        memset(
+          block + nbRead,
+          ' ',
+          sizeBlock - nbRead);
+
+      }
+
+      
+      if (nbRead != 0) {
+
+        // Add the block to the stream
+        GSetAppend(
+          &streamIn,
+          (char*)block);
+
+      }
 
     }
-
-    // Add the block to the stream
-    GSetAppend(
-      &streamIn,
-      (char*)block);
 
   }
 
@@ -941,4 +958,4 @@ void FeistelCipheringDecipherFile(
 
 }
 
-        çºstuvw|ﬂV
+            
