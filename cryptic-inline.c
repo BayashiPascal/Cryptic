@@ -44,7 +44,7 @@ FeistelCiphering FeistelCipheringCreateStatic(
 
     .keys = keys,
     .fun = fun,
-    .mode = DEFAULT_OP_MODE,
+    .mode = CRYPTIC_DEFAULT_OP_MODE,
     .initVector = NULL,
     .streamBuffer = NULL,
     .counter = 0

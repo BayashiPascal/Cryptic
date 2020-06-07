@@ -18,7 +18,7 @@
     unsigned char*, \
     unsigned long)
 
-#define DEFAULT_OP_MODE FeistelCipheringOpMode_CTR
+#define CRYPTIC_DEFAULT_OP_MODE FeistelCipheringOpMode_CTR
 
 // ================= Data structures ===================
 

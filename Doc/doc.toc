@@ -1,7 +1,7 @@
 \contentsline {section}{\numberline {1}Interface}{1}
 \contentsline {section}{\numberline {2}Code}{5}
 \contentsline {subsection}{\numberline {2.1}cryptic.c}{5}
-\contentsline {subsection}{\numberline {2.2}cryptic-inline.c}{20}
+\contentsline {subsection}{\numberline {2.2}cryptic-inline.c}{21}
 \contentsline {section}{\numberline {3}Makefile}{26}
 \contentsline {section}{\numberline {4}Unit tests}{27}
 \contentsline {section}{\numberline {5}Unit tests output}{37}
