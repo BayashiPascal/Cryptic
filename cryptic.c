@@ -133,6 +133,10 @@ unsigned char* FeistelCipheringCipher(
       key,
       halfLenMsg);
 
+printf("A ");
+for(unsigned int iChar=0;iChar<lenMsg;++iChar) printf("%d,",str[iChar]);
+printf("\n");
+
     // Apply the XOR operator on the half right of the temporary
     // string with the left half of the ciphered message
     for (
@@ -145,6 +149,10 @@ unsigned char* FeistelCipheringCipher(
 
     }
 
+printf("B ");
+for(unsigned int iChar=0;iChar<lenMsg;++iChar) printf("%d,",str[iChar]);
+printf("\n");
+
     // Copy the temporary string into the ciphered message
     memcpy(
       cipheredMsg,
@@ -152,6 +160,10 @@ unsigned char* FeistelCipheringCipher(
       lenMsg);
 
   } while (GSetIterStep(&iter));
+
+printf("C ");
+for(unsigned int iChar=0;iChar<lenMsg;++iChar) printf("%d,",cipheredMsg[iChar]);
+printf("\n");
 
   // Exchange the two halves of the ciphered message
   for (
@@ -167,6 +179,10 @@ unsigned char* FeistelCipheringCipher(
     cipheredMsg,
     str,
     lenMsg);
+
+printf("D ");
+for(unsigned int iChar=0;iChar<lenMsg;++iChar) printf("%d,",cipheredMsg[iChar]);
+printf("\n");
 
   // Free memory
   free(str);

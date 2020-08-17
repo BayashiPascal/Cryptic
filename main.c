@@ -542,7 +542,8 @@ void UnitTestFeistelStreamCipheringFile() {
 
   FILE* fpIn =
     fopen(
-      "./cryptic.c",
+      //"./cryptic.c",
+      "./test.txt",
       "r");
   FILE* fpOut =
     fopen(
@@ -601,7 +602,8 @@ void UnitTestAll() {
 
 int main() {
 
-  UnitTestAll();
+  //UnitTestAll();
+  UnitTestFeistelStreamCipheringFile();
 
   // Return success code
   return 0;
