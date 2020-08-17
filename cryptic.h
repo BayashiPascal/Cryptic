@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include "pberr.h"
 #include "gset.h"
 
@@ -54,7 +55,7 @@ typedef struct FeistelCiphering {
   unsigned char* streamBuffer;
 
   // Counter for the CTR operating mode
-  unsigned long counter;
+  uint32_t counter;
 
 } FeistelCiphering;
 
