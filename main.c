@@ -7,9 +7,9 @@ void CipheringFun(
   unsigned char* src,
   unsigned char* dest,
   unsigned char* key,
-   unsigned long len) {
+        uint32_t len) {
 
-  unsigned long lenKey = strlen((char*)key);
+  uint32_t lenKey = strlen((char*)key);
   for (
     unsigned int iChar = 0;
     iChar < len;
@@ -118,7 +118,7 @@ void UnitTestFeistelStreamCipheringECB() {
       (unsigned char*)"What's up there?"
 
     };
-  unsigned long lenMsg = strlen((char*)(msg[0]));
+  uint32_t lenMsg = strlen((char*)(msg[0]));
   for (int iMsg = 0; iMsg < 2; ++iMsg) {
 
     GSetAppend(
@@ -222,6 +222,7 @@ void UnitTestFeistelStreamCipheringECB() {
       PBErrCatch(CrypticErr);
 
     }
+
     ++iMsg;
 
     free(decipheredMsg);
@@ -253,7 +254,7 @@ void UnitTestFeistelStreamCipheringCBC() {
       (unsigned char*)"What's up there?"
 
     };
-  unsigned long lenMsg = strlen((char*)(msg[0]));
+  uint32_t lenMsg = strlen((char*)(msg[0]));
   for (int iMsg = 0; iMsg < 2; ++iMsg) {
 
     GSetAppend(
@@ -282,12 +283,12 @@ void UnitTestFeistelStreamCipheringCBC() {
   FeistelCipheringSetOpMode(
     &cipher,
     FeistelCipheringOpMode_CBC);
-  unsigned long reqSize =
+  uint32_t reqSize =
     FeistelCipheringGetReqSizeInitVec(
       &cipher,
       lenMsg);
   printf(
-    "Required initialisation vector's size: %lu\n",
+    "Required initialisation vector's size: %u\n",
     reqSize);
   FeistelCipheringSetInitVec(
     &cipher,
@@ -367,6 +368,7 @@ void UnitTestFeistelStreamCipheringCBC() {
       PBErrCatch(CrypticErr);
 
     }
+
     ++iMsg;
 
     free(decipheredMsg);
@@ -398,7 +400,7 @@ void UnitTestFeistelStreamCipheringCTR() {
       (unsigned char*)"What's up there?"
 
     };
-  unsigned long lenMsg = strlen((char*)(msg[0]));
+  uint32_t lenMsg = strlen((char*)(msg[0]));
   for (int iMsg = 0; iMsg < 2; ++iMsg) {
 
     GSetAppend(
@@ -427,12 +429,12 @@ void UnitTestFeistelStreamCipheringCTR() {
   FeistelCipheringSetOpMode(
     &cipher,
     FeistelCipheringOpMode_CTR);
-  unsigned long reqSize =
+  uint32_t reqSize =
     FeistelCipheringGetReqSizeInitVec(
       &cipher,
       lenMsg);
   printf(
-    "Required initialisation vector's size: %lu\n",
+    "Required initialisation vector's size: %u\n",
     reqSize);
   FeistelCipheringSetInitVec(
     &cipher,
@@ -512,6 +514,7 @@ void UnitTestFeistelStreamCipheringCTR() {
       PBErrCatch(CrypticErr);
 
     }
+
     ++iMsg;
 
     free(decipheredMsg);
@@ -542,8 +545,7 @@ void UnitTestFeistelStreamCipheringFile() {
 
   FILE* fpIn =
     fopen(
-      //"./cryptic.c",
-      "./test.txt",
+      "./cryptic.c",
       "r");
   FILE* fpOut =
     fopen(
@@ -602,8 +604,7 @@ void UnitTestAll() {
 
 int main() {
 
-  //UnitTestAll();
-  UnitTestFeistelStreamCipheringFile();
+  UnitTestAll();
 
   // Return success code
   return 0;

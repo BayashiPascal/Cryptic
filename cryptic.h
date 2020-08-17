@@ -17,7 +17,7 @@
     unsigned char*, \
     unsigned char*, \
     unsigned char*, \
-    unsigned long)
+    uint32_t)
 
 #define CRYPTIC_DEFAULT_OP_MODE FeistelCipheringOpMode_CTR
 
@@ -64,7 +64,7 @@ typedef struct FeistelCiphering {
 // Static constructor for a Feistel cipher,
 // 'keys' is a GSet of null terminated strings, all the same size
 // 'fun' is the ciphering function of the form
-// void (*fun)(char* src, char* dest, char* key, unsigned long len)
+// void (*fun)(char* src, char* dest, char* key, uint32_t len)
 // 'src', 'dest' have same length 'len'
 // 'key' may be of any length
 #if BUILDMODE != 0
@@ -84,7 +84,7 @@ void FeistelCipheringFreeStatic(
 unsigned char* FeistelCipheringCipher(
   FeistelCiphering* that,
      unsigned char* msg,
-      unsigned long lenMsg);
+           uint32_t lenMsg);
 
 // Function to decipher the message 'msg' with the FeistelCiphering
 // 'that'
@@ -93,7 +93,7 @@ unsigned char* FeistelCipheringCipher(
 unsigned char* FeistelCipheringDecipher(
   FeistelCiphering* that,
      unsigned char* msg,
-      unsigned long lenMsg);
+           uint32_t lenMsg);
 
 // Get the operating mode of the FeistelCiphering 'that'
 #if BUILDMODE != 0
@@ -146,10 +146,10 @@ void FeistelCipheringInitStream(
 // Memory used by the messages from the 'streamIn' is freed
 // 'lenMsg' must be at least sizeof(that->counter) + 1
 void FeistelCipheringCipherStream(
-    FeistelCiphering* that,
-       GSetStr* const streamIn,
-       GSetStr* const streamOut,
-  const unsigned long lenMsg);
+  FeistelCiphering* that,
+     GSetStr* const streamIn,
+     GSetStr* const streamOut,
+     const uint32_t lenMsg);
 
 // Function to decipher a stream of messages 'msg' with the
 // FeistelCiphering 'that'
@@ -160,19 +160,19 @@ void FeistelCipheringCipherStream(
 // Memory used by the messages from the 'streamIn' is freed
 // 'lenMsg' must be at least sizeof(that->counter) + 1
 void FeistelCipheringDecipherStream(
-    FeistelCiphering* that,
-       GSetStr* const streamIn,
-       GSetStr* const streamOut,
-  const unsigned long lenMsg);
+  FeistelCiphering* that,
+     GSetStr* const streamIn,
+     GSetStr* const streamOut,
+     const uint32_t lenMsg);
 
 // Get the required size of the initialisation vector for the
 // FeistelCiphering 'that' for messages of length 'lenMsg'
 #if BUILDMODE != 0
 static inline
 #endif
-unsigned long FeistelCipheringGetReqSizeInitVec(
+uint32_t FeistelCipheringGetReqSizeInitVec(
   const FeistelCiphering* const that,
-            const unsigned long lenMsg);
+                 const uint32_t lenMsg);
 
 // Function to cipher a file 'fpIn' with the FeistelCiphering 'that'
 // Save the result in the file 'fpOut'.
@@ -202,7 +202,7 @@ void FeistelCipheringDecipherFile(
 #if BUILDMODE != 0
 static inline
 #endif
-unsigned long FeistelCipheringGetDefaultSizeBlock(
+uint32_t FeistelCipheringGetDefaultSizeBlock(
   const FeistelCiphering* const that);
 
 // ================ inliner ====================

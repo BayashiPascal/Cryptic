@@ -5,7 +5,7 @@
 // Static constructor for a Feistel cipher,
 // 'keys' is a GSet of null terminated strings, all the same size
 // 'fun' is the ciphering function of the form
-// void (*fun)(char* src, char* dest, char* key, unsigned long len)
+// void (*fun)(char* src, char* dest, char* key, uint32_t len)
 // 'src', 'dest' have same length 'len'
 // 'key' may be of any length
 #if BUILDMODE != 0
@@ -194,10 +194,6 @@ void FeistelCipheringSetInitVec(
         initVec,
         strlen((char*)initVec));
 
-printf("init ");
-for(unsigned int iChar=0;iChar<strlen((char*)initVec) + 1 + sizeof(that->counter);++iChar) printf("%d,",that->initVector[iChar]);
-printf("\n");
-
       break;
 
     default:
@@ -251,9 +247,9 @@ void FeistelCipheringInitStream(
 #if BUILDMODE != 0
 static inline
 #endif
-unsigned long FeistelCipheringGetReqSizeInitVec(
+uint32_t FeistelCipheringGetReqSizeInitVec(
   const FeistelCiphering* const that,
-            const unsigned long lenMsg) {
+                 const uint32_t lenMsg) {
 
 #if BUILDMODE == 0
 
@@ -270,7 +266,7 @@ unsigned long FeistelCipheringGetReqSizeInitVec(
 #endif
 
   // Declare a variable to memorize the size
-  unsigned long size = 0;
+  uint32_t size = 0;
 
   // Return the size of initialising vector
   switch (FeistelCipheringGetOpMode(that)) {
@@ -302,7 +298,7 @@ unsigned long FeistelCipheringGetReqSizeInitVec(
 #if BUILDMODE != 0
 static inline
 #endif
-unsigned long FeistelCipheringGetDefaultSizeBlock(
+uint32_t FeistelCipheringGetDefaultSizeBlock(
   const FeistelCiphering* const that) {
 
 #if BUILDMODE == 0
@@ -320,7 +316,7 @@ unsigned long FeistelCipheringGetDefaultSizeBlock(
 #endif
 
   // Calculate the size of blocks
-  unsigned long sizeBlock = 0;
+  uint32_t sizeBlock = 0;
   unsigned char* key = NULL;
   switch (FeistelCipheringGetOpMode(that)) {
 

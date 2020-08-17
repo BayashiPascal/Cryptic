@@ -7,9 +7,9 @@ void CipheringFun(
   unsigned char* src,
   unsigned char* dest,
   unsigned char* key,
-   unsigned long len) {
+        uint32_t len) {
 
-  unsigned long lenKey = strlen((char*)key);
+  uint32_t lenKey = strlen((char*)key);
   for (
     unsigned int iChar = 0;
     iChar < len;

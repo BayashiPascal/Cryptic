@@ -53,7 +53,7 @@ void FeistelCipheringFreeStatic(
 unsigned char* FeistelCipheringCipher(
   FeistelCiphering* that,
      unsigned char* msg,
-      unsigned long lenMsg) {
+           uint32_t lenMsg) {
 
 #if BUILDMODE == 0
 
@@ -103,7 +103,7 @@ unsigned char* FeistelCipheringCipher(
     lenMsg + 1);
 
   // Declare a variable to memorize the half length of the message
-  unsigned long halfLenMsg = lenMsg / 2;
+  uint32_t halfLenMsg = lenMsg / 2;
 
   // Allocate memory for the ciphering function
   unsigned char* str =
@@ -133,10 +133,6 @@ unsigned char* FeistelCipheringCipher(
       key,
       halfLenMsg);
 
-printf("A ");
-for(unsigned int iChar=0;iChar<lenMsg;++iChar) printf("%d,",str[iChar]);
-printf("\n");
-
     // Apply the XOR operator on the half right of the temporary
     // string with the left half of the ciphered message
     for (
@@ -149,10 +145,6 @@ printf("\n");
 
     }
 
-printf("B ");
-for(unsigned int iChar=0;iChar<lenMsg;++iChar) printf("%d,",str[iChar]);
-printf("\n");
-
     // Copy the temporary string into the ciphered message
     memcpy(
       cipheredMsg,
@@ -160,10 +152,6 @@ printf("\n");
       lenMsg);
 
   } while (GSetIterStep(&iter));
-
-printf("C ");
-for(unsigned int iChar=0;iChar<lenMsg;++iChar) printf("%d,",cipheredMsg[iChar]);
-printf("\n");
 
   // Exchange the two halves of the ciphered message
   for (
@@ -180,10 +168,6 @@ printf("\n");
     str,
     lenMsg);
 
-printf("D ");
-for(unsigned int iChar=0;iChar<lenMsg;++iChar) printf("%d,",cipheredMsg[iChar]);
-printf("\n");
-
   // Free memory
   free(str);
 
@@ -199,7 +183,7 @@ printf("\n");
 unsigned char* FeistelCipheringDecipher(
   FeistelCiphering* that,
      unsigned char* msg,
-      unsigned long lenMsg) {
+           uint32_t lenMsg) {
 
 #if BUILDMODE == 0
 
@@ -249,7 +233,7 @@ unsigned char* FeistelCipheringDecipher(
     lenMsg + 1);
 
   // Declare a variable to memorize the helf length of the message
-  unsigned long halfLenMsg = lenMsg / 2;
+  uint32_t halfLenMsg = lenMsg / 2;
 
   // Allocate memory for the ciphering function
   unsigned char* str =
@@ -331,10 +315,10 @@ unsigned char* FeistelCipheringDecipher(
 // Memory used by the messages from the 'streamIn' is freed
 // 'lenMsg' must be at least sizeof(that->counter) + 1
 void FeistelCipheringCipherStream(
-    FeistelCiphering* that,
-       GSetStr* const streamIn,
-       GSetStr* const streamOut,
-  const unsigned long lenMsg) {
+  FeistelCiphering* that,
+     GSetStr* const streamIn,
+     GSetStr* const streamOut,
+     const uint32_t lenMsg) {
 
 #if BUILDMODE == 0
 
@@ -440,7 +424,7 @@ void FeistelCipheringCipherStream(
 
         // XOR the current message
         for (
-          unsigned long iChar = 0;
+          uint32_t iChar = 0;
           iChar < lenMsg;
           ++iChar) {
 
@@ -490,7 +474,7 @@ void FeistelCipheringCipherStream(
         // XOR the current message with the ciphered initialisation
         // vector
         for (
-          unsigned long iChar = 0;
+          uint32_t iChar = 0;
           iChar < lenMsg;
           ++iChar) {
 
@@ -530,10 +514,10 @@ void FeistelCipheringCipherStream(
 // Memory used by the messages from the 'streamIn' is freed
 // 'lenMsg' must be at least sizeof(that->counter) + 1
 void FeistelCipheringDecipherStream(
-    FeistelCiphering* that,
-       GSetStr* const streamIn,
-       GSetStr* const streamOut,
-  const unsigned long lenMsg) {
+  FeistelCiphering* that,
+     GSetStr* const streamIn,
+     GSetStr* const streamOut,
+     const uint32_t lenMsg) {
 
 #if BUILDMODE == 0
 
@@ -646,7 +630,7 @@ void FeistelCipheringDecipherStream(
 
           // XOR the current message
           for (
-            unsigned long iChar = 0;
+            uint32_t iChar = 0;
             iChar < lenMsg;
             ++iChar) {
 
@@ -690,7 +674,7 @@ void FeistelCipheringDecipherStream(
         // XOR the current message with the ciphered initialisation
         // vector
         for (
-          unsigned long iChar = 0;
+          uint32_t iChar = 0;
           iChar < lenMsg;
           ++iChar) {
 
@@ -767,7 +751,7 @@ void FeistelCipheringCipherFile(
 #endif
 
   // Get the size of blocks
-  unsigned long sizeBlock = FeistelCipheringGetDefaultSizeBlock(that);
+  uint32_t sizeBlock = FeistelCipheringGetDefaultSizeBlock(that);
 
   // Create the stream of blocks
   GSetStr streamIn = GSetStrCreateStatic();
@@ -782,7 +766,7 @@ void FeistelCipheringCipherFile(
         sizeBlock);
 
     // Read the block
-    unsigned long nbRead =
+    uint32_t nbRead =
       fread(
         block,
         1,
@@ -803,10 +787,6 @@ void FeistelCipheringCipherFile(
           sizeBlock - nbRead);
 
       }
-
-printf("block ");
-for(unsigned int iChar=0;iChar<sizeBlock;++iChar) printf("%d,",block[iChar]);
-printf("\n");
 
       // Add the block to the stream
       GSetAppend(
@@ -834,7 +814,7 @@ printf("\n");
     unsigned char* block = (unsigned char*)GSetPop(&streamOut);
 
     // Save it to the output file
-    unsigned long nbWrite =
+    uint32_t nbWrite =
       fwrite(
         block,
         1,
@@ -895,7 +875,7 @@ void FeistelCipheringDecipherFile(
 #endif
 
   // Get the size of blocks
-  unsigned long sizeBlock = FeistelCipheringGetDefaultSizeBlock(that);
+  uint32_t sizeBlock = FeistelCipheringGetDefaultSizeBlock(that);
 
   // Create the stream of blocks
   GSetStr streamIn = GSetStrCreateStatic();
@@ -910,7 +890,7 @@ void FeistelCipheringDecipherFile(
         sizeBlock);
 
     // Read the block
-    unsigned long nbRead =
+    uint32_t nbRead =
       fread(
         block,
         1,
@@ -932,7 +912,6 @@ void FeistelCipheringDecipherFile(
 
       }
 
-      
       if (nbRead != 0) {
 
         // Add the block to the stream
@@ -963,7 +942,7 @@ void FeistelCipheringDecipherFile(
     unsigned char* block = (unsigned char*)GSetPop(&streamOut);
 
     // Save it to the output file
-    unsigned long nbWrite =
+    uint32_t nbWrite =
       fwrite(
         block,
         1,
@@ -977,4 +956,3 @@ void FeistelCipheringDecipherFile(
   }
 
 }
-
