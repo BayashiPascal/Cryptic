@@ -804,6 +804,10 @@ void FeistelCipheringCipherFile(
 
       }
 
+printf("block ");
+for(unsigned int iChar=0;iChar<sizeBlock;++iChar) printf("%d,",block[iChar]);
+printf("\n");
+
       // Add the block to the stream
       GSetAppend(
         &streamIn,

@@ -194,6 +194,10 @@ void FeistelCipheringSetInitVec(
         initVec,
         strlen((char*)initVec));
 
+printf("init ");
+for(unsigned int iChar=0;iChar<strlen((char*)initVec) + 1 + sizeof(that->counter);++iChar) printf("%d,",that->initVector[iChar]);
+printf("\n");
+
       break;
 
     default:
